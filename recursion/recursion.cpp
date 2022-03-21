@@ -2,68 +2,80 @@
 #include <stdlib.h>
 #include <math.h>
 
-int arrSize;
-int* arrStorage = NULL;
+int ARRAY_SIZE;
+int* TEMP_ARRAY = NULL;
 
-int roundUp(int number) {
-	return ceil(number / 2);
+bool IsEqualToPickedNumber(int* argArray, int pickedNumber, int midPoint);
+
+bool IsHigherThanPickedNumber(int* argArray, int pickedNumber, int midPoint);
+
+void IsLowerThanPickedNumber(int* argArray, int arraySize, int pickedNumber, int midPoint);
+
+int BinarySearch(int pickedNumber, int* argArray, int arraySize);
+
+int main() {
+
+	int array_size = 9;
+	int* array = (int*)malloc(array_size * sizeof(int));
+	int picked_number = 8;
+
+	ARRAY_SIZE = array_size;
+	TEMP_ARRAY = (int*)calloc(ARRAY_SIZE, sizeof(int));
+	printf("Picked number: %d\n", picked_number);
+	
+	for (int i = 0; i < array_size; i++) {
+		array[i] = i+2;
+		TEMP_ARRAY[i] = array[i];
+		printf("array[%d] = %d\n", i, array[i]);
+	}
+
+	picked_number = BinarySearch(picked_number, array, array_size);
+	printf("position in array: %d", picked_number);
+
+	free(array);
+	return 0;
 }
 
-int binarySearch(int pos, int* arr, int size, const int constSize) {
+bool IsEqualToPickedNumber(int* argArray, int pickedNumber, int midPoint) {
+	return (argArray[midPoint] == pickedNumber);
+}
 
-	int midPoint = floor(size / 2);
+bool IsHigherThanPickedNumber(int* argArray, int pickedNumber, int midPoint) {
+	return (argArray[midPoint] > pickedNumber);
+}
+
+void IsLowerThanPickedNumber(int* argArray, int arraySize, int pickedNumber, int midPoint) {
+	int* helperArr = (int*)malloc(arraySize * sizeof(int));
+
+	for (int i = 0; i < arraySize; i++) {
+		helperArr[i] = argArray[i];
+	}
+
+	argArray = (int*)realloc(argArray, sizeof(int)*midPoint);
+	for (int i = 0; i < midPoint; i++) {
+		argArray[i] = helperArr[i + midPoint];
+	}
+}
+
+int BinarySearch(int pickedNumber, int* argArray, int arraySize) {
+
+	int midPoint = floor(arraySize / 2);
 	
-	if (arr[midPoint] == pos) {
-		
-		for (int i = 0; i < arrSize; i++) {
-			if (arrStorage[i] == arr[midPoint]) {
+	if (IsEqualToPickedNumber(argArray, pickedNumber, midPoint)) {
+		for (int i = 0; i < ARRAY_SIZE; i++) {
+			if (TEMP_ARRAY[i] == argArray[midPoint]) {
 				return i;
 			}
 		}
 	}
 	else {
-		if (arr[midPoint] > pos) {
-			arr = (int*)realloc(arr, sizeof(int)*midPoint);
-			binarySearch(pos, arr, midPoint, constSize);
+		if (IsHigherThanPickedNumber(argArray, pickedNumber, midPoint)) {
+			argArray = (int*)realloc(argArray, sizeof(int) * midPoint);
+			BinarySearch(pickedNumber, argArray, midPoint);
 		}
 		else {
-			int* helperArr = (int*)malloc(size * sizeof(int));
-
-			for (int i = 0; i < size; i++) {
-				helperArr[i] = arr[i];
-			}
-
-			arr = (int*)realloc(arr, sizeof(int)*midPoint);
-			for (int i = 0; i < midPoint; i++) {
-				arr[i] = helperArr[i + midPoint];
-			}
-			binarySearch(pos, arr, midPoint, constSize);
+			IsLowerThanPickedNumber(argArray, arraySize, pickedNumber, midPoint);
+			BinarySearch(pickedNumber, argArray, midPoint);
 		}
 	}
-
-}
-
-int main() {
-
-	int size = 9;
-	const int constSize = size;
-	int* array = (int*)malloc(size * sizeof(int));
-	int position = 8;
-
-	arrSize = size;
-	arrStorage = (int*)calloc(arrSize, sizeof(int));
-	printf("Picked position: %d\n", position);
-	
-	for (int i = 0; i < size; i++) {
-		array[i] = i+2;
-		arrStorage[i] = array[i];
-		printf("array[%d] = %d\n", i, array[i]);
-	}
-
-
-	position = binarySearch(position, array, size,constSize);
-	printf("position in array: %d", position);
-
-	free(array);
-	return 0;
 }
