@@ -1,4 +1,4 @@
 ﻿  recursion.cpp
-C:\Users\siutson\Documents\projects\cpp\git_clone_folder\recursion-bsa\recursion\recursion.cpp(62,15): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
-C:\Users\siutson\Documents\projects\cpp\git_clone_folder\recursion-bsa\recursion\recursion.cpp(81): warning C4715: "BinarySearch”: niewszystkie ścieżki kodu zwracają wartość
+C:\Users\siutson\Documents\projects\cpp\git_clone_folder\recursion-bsa\recursion\recursion.cpp(83,15): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\siutson\Documents\projects\cpp\git_clone_folder\recursion-bsa\recursion\recursion.cpp(115): warning C4715: "BinarySearch”: niewszystkie ścieżki kodu zwracają wartość
   recursion.vcxproj -> C:\Users\siutson\Documents\projects\cpp\git_clone_folder\recursion-bsa\Debug\recursion.exe
