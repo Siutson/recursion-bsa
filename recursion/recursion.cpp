@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 
-void GetArraySize(int *arraySize);
+// function declarations
+void GetArraySize(int *arraySize); // function that help keep track of primary size of the array
 
-int* CreateArray(int arraySize);
+int* CreateArray(int arraySize); // function that creates primary array
 
 bool IsEqualToPickedNumber(int* argArray, int pickedNumber, int midPoint);
 
@@ -21,21 +22,22 @@ int main() {
 	
 	int* array = CreateArray(array_size);
 	
-	printf("Generated array:\n");
+	printf("Generated array:\n"); 
 	for (int i = 0; i < array_size; i++) {
 		printf("array[%d] = %d\n", i, array[i]);
-	}
+	} // prints generated array to console
 	
 	printf("Select number from array to get its index:\n");
 	int picked_number;
-	scanf("%d", &picked_number);
+	scanf("%d", &picked_number); // get number from user to search for its index later on
 
-	picked_number = BinarySearch(picked_number, array, array_size); // here we overwrite value of picked number to store position of it in array
+	picked_number = BinarySearch(picked_number, array, array_size); // here we overwrite value of picked number to store its position in array
 	printf("position in array: %d\n", picked_number);
 
 	return 0;
 }
 
+// function definitions
 void GetArraySize(int *arraySize) {
 	*arraySize = 9;
 }
